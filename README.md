@@ -31,9 +31,34 @@ Create a proveably random smart contract lottery.
 ## Raffle.sol Setup
 
 - Empty script, src, test folders
-- Create ./src/Raffle.sol file
-  run
+- Create ./src/Raffle.sol file, then run:
 
 ```bash
 forge build
+```
+
+## Solidity Contract Layout
+
+```solidity
+// Layout of Contract:
+// version
+// imports
+// errors
+// interfaces, libraries, contracts
+// Type declarations
+// State variables
+// Events
+// Modifiers
+// Functions
+
+// Layout of Functions:
+// constructor
+// receive function (if exists)
+// fallback function (if exists)
+// external
+// public
+// internal
+// private
+// internal & private view & pure functions
+// external & public view & pure functions
 ```
