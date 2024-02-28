@@ -62,3 +62,9 @@ forge build
 // internal & private view & pure functions
 // external & public view & pure functions
 ```
+
+## Custom Errors
+
+compare to `require`, `error` are more gas efficient
+
+## Events
