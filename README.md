@@ -28,4 +28,12 @@ Create a proveably random smart contract lottery.
    1. Chainlink VRF -> Randomness
    2. Chainlink Automation -> Time based trigger
 
-## Start coding
+## Raffle.sol Setup
+
+- Empty script, src, test folders
+- Create ./src/Raffle.sol file
+  run
+
+```bash
+forge build
+```
