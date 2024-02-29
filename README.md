@@ -77,3 +77,8 @@ emit EnteredRaffle(msg.sender);
 ```
 
 ## block.timestamp
+
+block.timestamp is a value that represents the time when a block was created on the Ethereum blockchain. It is measured in seconds since the Unix epoch, which is January 1, 1970.
+Each round of lottery takes a certain amount of time, we can use block.timestamp to measure the interval between two round of lottery.
+
+## Chainlink VRF
