@@ -68,3 +68,12 @@ forge build
 compare to `require`, `error` are more gas efficient
 
 ## Events
+
+```solidity
+// declare
+event EnteredRaffle(address indexed player);
+// use
+emit EnteredRaffle(msg.sender);
+```
+
+## block.timestamp
