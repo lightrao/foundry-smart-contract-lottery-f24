@@ -82,3 +82,29 @@ block.timestamp is a value that represents the time when a block was created on 
 Each round of lottery takes a certain amount of time, we can use block.timestamp to measure the interval between two round of lottery.
 
 ## Chainlink VRF
+
+https://docs.chain.link/vrf
+
+## Implementing Chainlink VRF
+
+Edit Raffle.sol file to realize VRF.
+
+We need to install dependency:
+
+```bash
+forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
+```
+
+We need to config foundry.toml, add line:
+
+```
+remappings = ['@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts']
+```
+
+try run:
+
+```bash
+forge build
+```
+
+## Modulo
