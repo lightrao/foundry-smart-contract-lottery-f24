@@ -174,3 +174,9 @@ forge compile # or forge build
 we just already create a framwork for Raffle contract
 
 ## Tests & Deploy Script Setup
+
+```bash
+forge install Cyfrin/foundry-devops --no-commit
+forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
+forge install transmissions11/solmate --no-commit
+```
