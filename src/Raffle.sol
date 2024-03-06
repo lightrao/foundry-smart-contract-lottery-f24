@@ -93,7 +93,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
      * the following should be true for this to return true:
      * 1. The time interval has passed between raffle runs.
      * 2. The lottery is open.
-     * 3. The contract has ETH.
+     * 3. The contract has ETH, so at least one player are participated.
      * 4. Implicity, your subscription is funded with LINK.
      */
     function checkUpkeep(
