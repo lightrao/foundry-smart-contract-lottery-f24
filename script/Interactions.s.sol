@@ -8,6 +8,8 @@ import {DevOpsTools} from "foundry-devops/src/DevOpsTools.sol";
 import {VRFCoordinatorV2Mock} from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import {LinkToken} from "../test/mocks/LinkToken.sol";
 
+import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+
 contract CreateSubscription is Script {
     function createSubscriptionUsingConfig() public returns (uint64, address) {
         HelperConfig helperConfig = new HelperConfig();
@@ -30,7 +32,7 @@ contract CreateSubscription is Script {
     ) public returns (uint64, address) {
         console.log("Creating subscription on chainId: ", block.chainid);
         vm.startBroadcast(deployerKey);
-        uint64 subId = VRFCoordinatorV2Mock(vrfCoordinatorV2)
+        uint64 subId = VRFCoordinatorV2Interface(vrfCoordinatorV2)
             .createSubscription();
         vm.stopBroadcast();
         console.log("Your subscription Id is: ", subId);
