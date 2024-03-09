@@ -175,6 +175,22 @@ we just already create a framwork for Raffle contract
 
 ## Tests & Deploy Script Setup
 
+1. Write some deploy scripts
+2. Write our tests
+   1. Work on local chain
+   2. Forked test net
+   3. Forked Main net
+
+- Create `DeployRaffle.s.sol`, `HelperConfig.s.sol`,
+
+## Mock Chainlink VRF Coordinator
+
+- We are using `VRFCoordinatorV2Mock`
+
+## Tests & Deploy Script Continued
+
+## Install dependencies
+
 ```bash
 forge install Cyfrin/foundry-devops --no-commit
 forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit

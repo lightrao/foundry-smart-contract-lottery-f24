@@ -75,14 +75,18 @@ contract HelperConfig is Script {
             return activeNetworkConfig;
         }
 
-        uint96 baseFee = 0.25 ether;
-        uint96 gasPriceLink = 1e9;
+        uint96 baseFee = 0.25 ether; // 0.25 LINK
+        uint96 gasPriceLink = 1e9; // 1 gwei LINK
 
         vm.startBroadcast(DEFAULT_ANVIL_PRIVATE_KEY);
+
         VRFCoordinatorV2Mock vrfCoordinatorV2Mock = new VRFCoordinatorV2Mock(
-            baseFee,
-            gasPriceLink
+            baseFee, // a flat fee vrf coordinator takes
+            gasPriceLink // link paids for each of additional piece of gas vrf coodinator use
         );
+        // when chainlink node calls back `fulfillRandomWords` on our contract, chainlink node is
+        // the one actually paying the gas to do so, and so it reinmbursed in link for that gas cost
+        // based of `gasPriceLink` parameter
 
         LinkToken link = new LinkToken();
         vm.stopBroadcast();
