@@ -19,7 +19,7 @@ contract DeployRaffle is Script {
             address vrfCoordinatorV2,
             address link,
             uint256 deployerKey
-        ) = helperConfig.activeNetworkConfig();
+        ) = helperConfig.activeNetworkConfig(); // deconstructing assignment
 
         if (subscriptionId == 0) {
             CreateSubscription createSubscription = new CreateSubscription();

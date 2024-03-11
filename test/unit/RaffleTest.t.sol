@@ -56,7 +56,7 @@ contract RaffleTest is StdCheats, Test {
     // enterRaffle         //
     /////////////////////////
 
-    function testRaffleRevertsWHenYouDontPayEnought() public {
+    function testRaffleRevertsWHenYouDontPayEnough() public {
         // Arrange
         vm.prank(PLAYER);
         // Act / Assert
@@ -79,18 +79,25 @@ contract RaffleTest is StdCheats, Test {
         vm.prank(PLAYER);
 
         // Act / Assert
-        vm.expectEmit(true, false, false, false, address(raffle));
-        emit RaffleEnter(PLAYER);
+        vm.expectEmit(
+            true, // checkTopic1(index param)
+            false, // checkTopic2
+            false, // checkTopic3
+            false, // checkData(unindex prara)
+            address(raffle) // eventEmitter's address
+        );
+        // we need to redefine the `RaffleEnter` event in the current contract
+        emit RaffleEnter(PLAYER); // manually emit the event expected of the next line to emit
         raffle.enterRaffle{value: raffleEntranceFee}();
     }
 
     function testDontAllowPlayersToEnterWhileRaffleIsCalculating() public {
-        // Arrange
+        // Arrange: already has a player enter the raffle, so it is in calculating state
         vm.prank(PLAYER);
         raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
-        raffle.performUpkeep("");
+        vm.warp(block.timestamp + automationUpdateInterval + 1); // set block's timestamp
+        vm.roll(block.number + 1); // set block's number
+        raffle.performUpkeep(""); // we should in caculating state
 
         // Act / Assert
         vm.expectRevert(Raffle.Raffle__RaffleNotOpen.selector);

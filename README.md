@@ -181,13 +181,20 @@ we just already create a framwork for Raffle contract
    2. Forked test net
    3. Forked Main net
 
-- Create `DeployRaffle.s.sol`, `HelperConfig.s.sol`,
+Create `DeployRaffle.s.sol`, `HelperConfig.s.sol`
 
 ## Mock Chainlink VRF Coordinator
 
-- We are using `VRFCoordinatorV2Mock`
+We are using `VRFCoordinatorV2Mock`
 
 ## Tests & Deploy Script Continued
+
+Create `RaffleTest.t.sol`, `RaffleStageingTest.t.sol`
+run:
+
+```bash
+forge test
+```
 
 ## Install dependencies
 
@@ -196,3 +203,46 @@ forge install Cyfrin/foundry-devops --no-commit
 forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
 forge install transmissions11/solmate --no-commit
 ```
+
+## Lots of Tests
+
+run:
+
+```bash
+forge coverage
+```
+
+Write more test, and run:
+
+```bash
+forge test --match-test testRaffleRevertsWHenYouDontPayEnough
+forge test --match-test testRaffleRecordsPlayerWhenTheyEnter
+```
+
+Note: before player enter raffle, he should have some eth.
+
+## Testing Events in Foundry
+
+run:
+
+```bash
+forge test --match-test testEmitsEventOnEntrance
+```
+
+## vm.roll & vm.warp
+
+run:
+
+```bash
+forge test --match-test testDontAllowPlayersToEnterWhileRaffleIsCalculating
+```
+
+## Create Subscription Script
+
+We need:
+
+- create VRF subscription
+- fund the VRF subscription
+- add `Raffle` contract address as consumer into VRF subscription
+
+refactor `DeployRaffle.s.sol` and add subscription effect into it.
