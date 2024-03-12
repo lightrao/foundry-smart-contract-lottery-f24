@@ -246,3 +246,26 @@ We need:
 - add `Raffle` contract address as consumer into VRF subscription
 
 refactor `DeployRaffle.s.sol` and add subscription effect into it.
+create `Interactions.s.sol` to contain subscription function.
+
+note:
+
+- go to `https://vrf.chain.link/`
+- create subscription through UI
+- use Metamask to sign message
+- use Metamask to sign `0x8103B...64625:CREATE SUBSCRIPTION`
+  - FUNCTION TYPE: Create Subscription
+  - PARAMETERS:[]
+  - HEX DATA: 4 BYTES
+    - 0xa21a23e4
+- run:
+
+```bash
+ $ cast sig "createSubscription()"
+ 0xa21a23e4
+
+```
+
+- go to `https://openchain.xyz/signatures`, and search `0xa21a23e4`, you get `createSubscription()`
+
+## Create Subscription from the UI
