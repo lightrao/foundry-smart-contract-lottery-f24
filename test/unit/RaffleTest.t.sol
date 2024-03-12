@@ -60,7 +60,9 @@ contract RaffleTest is StdCheats, Test {
         // Arrange
         vm.prank(PLAYER);
         // Act / Assert
+        // selector is passed to expectRevert to specify which error the test expects
         vm.expectRevert(Raffle.Raffle__SendMoreToEnterRaffle.selector);
+        // calls the enterRaffle function of the Raffle contract without sending ether
         raffle.enterRaffle();
     }
 
