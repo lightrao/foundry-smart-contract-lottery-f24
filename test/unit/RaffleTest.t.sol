@@ -167,6 +167,8 @@ contract RaffleTest is StdCheats, Test {
 
         // Act / Assert
         // It doesnt revert
+        // The absence of vm.expectRevert before calling performUpkeep indicates that
+        // this test expects the function to complete successfully without any exceptions.
         raffle.performUpkeep("");
     }
 
