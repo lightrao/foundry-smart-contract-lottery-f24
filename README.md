@@ -269,3 +269,35 @@ note:
 - go to `https://openchain.xyz/signatures`, and search `0xa21a23e4`, you get `createSubscription()`
 
 ## Create Subscription from the UI
+
+- go to `https://vrf.chain.link/`
+- click `Create Subscription`
+- sign message
+- approve subscription creation
+- rceive confirmation
+- now we can see subscription ID
+- get some Link token from faucet
+  - erc20, erc677 are smart contract based tokens
+  - add Link contract address to Metamask so you can see the balance of it
+- add funds to subscription with Link
+  - 0x779...4789(Link token contract address):TRANSFER AND CALL
+
+## Fund Subscription Script
+
+- create `LinkToken.sol`
+- run: `forge install transmissions11/solmate --no-commit`
+- add `remappings = [
+    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts',
+    '@solmate=lib/solmate/src/',
+]` to foundry.toml
+- add fund subscription function into `Interactions.s.sol`
+- run `forge build`
+- update "subscriptionId" in HelperConfig.s.sol with the ID of UI at `https://vrf.chain.link/`
+- run:
+  ```bash
+  source .env
+  forge script script/Interactions.s.sol:FundSubscription --rpc-url $SEPOLIA_RPC_URL --private-key $SEPOLIA_PRIVATE_KEY --broadcast
+  ```
+- view front end UI and Metamask, we see the balance of Link token are changed
+
+## Add Consumer Script
