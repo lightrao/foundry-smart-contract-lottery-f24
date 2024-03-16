@@ -301,3 +301,14 @@ note:
 - view front end UI and Metamask, we see the balance of Link token are changed
 
 ## Add Consumer Script
+
+- add `contract AddConsumer is Script` into `interactions.s.sol`
+- run `forge install ChainAccelOrg/foundry-devops`
+- go to `https://vrf.chain.link/`, when add consumer
+  - Metamask will popup, we can see `FUNCTION TYPE: addConsumer(Uint64, address)`
+- in our code, call `addConsumer(subId, raffle)` of `VRFCoordinatroV2Mock`
+- run `forge build`
+- improve `DeployRaffle.s.sol`, create subscription if necesarry, fund the subscription, add consumer contract to the subscription
+- do unit test, run `forge test --match-test testDontAllowPlayersToEnterWhileRaffleIsCalculating`
+
+## More Tests
