@@ -320,3 +320,12 @@ note:
 - run `forge test --match-test testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed`
 
 ## PerformUpkeep Tests
+
+- run `forge test --match-test testPerformUpkeepCanOnlyRunIfCheckUpkeepIsTrue`
+- run `forge test --match-test testPerformUpkeepRevertsIfCheckUpkeepIsFalse`
+
+## Getting Event Data into Foundry Scripts
+
+- run `forge test --match-test testPerformUpkeepUpdatesRaffleStateAndEmitsRequestId`
+
+## Intro to Fuzz tests

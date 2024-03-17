@@ -135,6 +135,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
             NUM_WORDS
         );
         // Quiz... is this redundant?
+        // `emit RandomWordsRequested` is in `VRFCoordinatorV2Mock.sol`
         emit RequestedRaffleWinner(requestId);
     }
 

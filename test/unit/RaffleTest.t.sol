@@ -186,7 +186,7 @@ contract RaffleTest is StdCheats, Test {
         // Arrange
         uint256 currentBalance = 0;
         uint256 numPlayers = 0;
-        Raffle.RaffleState rState = raffle.getRaffleState();
+        Raffle.RaffleState rState = raffle.getRaffleState(); // open
         // Act / Assert
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -210,13 +210,15 @@ contract RaffleTest is StdCheats, Test {
         vm.recordLogs();
         raffle.performUpkeep(""); // emits requestId
         Vm.Log[] memory entries = vm.getRecordedLogs();
-        bytes32 requestId = entries[1].topics[1];
+        bytes32 requestId = entries[1].topics[1]; // event from raffle, zero topic is hash of function signature
+        bytes32 subId = entries[0].topics[2]; // event from vrfCoordinatorV2
 
         // Assert
         Raffle.RaffleState raffleState = raffle.getRaffleState();
         // requestId = raffle.getLastRequestId();
         assert(uint256(requestId) > 0);
         assert(uint(raffleState) == 1); // 0 = open, 1 = calculating
+        assert(uint256(subId) > 0);
     }
 
     /////////////////////////
