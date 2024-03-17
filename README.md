@@ -312,3 +312,11 @@ note:
 - do unit test, run `forge test --match-test testDontAllowPlayersToEnterWhileRaffleIsCalculating`
 
 ## More Tests
+
+- run `forge coverage`
+- run `forge test --match-test testCheckUpkeepReturnsFalseIfItHasNoBalance`
+- run `forge test --match-test testCheckUpkeepReturnsFalseIfRaffleIsntOpen`
+- run `forge coverage --report debug > coverage.txt`
+- run `forge test --match-test testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed`
+
+## PerformUpkeep Tests
