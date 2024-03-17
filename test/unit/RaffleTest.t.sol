@@ -305,13 +305,13 @@ contract RaffleTest is StdCheats, Test {
 
         // Assert
         address recentWinner = raffle.getRecentWinner();
-        Raffle.RaffleState raffleState = raffle.getRaffleState(); // after pick winner, raffle state back to open
+        Raffle.RaffleState raffleState = raffle.getRaffleState();
         uint256 winnerBalance = recentWinner.balance;
         uint256 endingTimeStamp = raffle.getLastTimeStamp();
         uint256 prize = raffleEntranceFee * (additionalEntrances + 1);
 
         assert(recentWinner == expectedWinner);
-        assert(uint256(raffleState) == 0);
+        assert(uint256(raffleState) == 0); // after pick winner, raffle state back to open
         assert(winnerBalance == startingBalance + prize);
         assert(endingTimeStamp > startingTimeStamp);
 
