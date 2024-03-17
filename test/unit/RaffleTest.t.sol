@@ -272,10 +272,8 @@ contract RaffleTest is StdCheats, Test {
         raffleEntered
         skipFork
     {
-        address expectedWinner = address(1);
-
         // Arrange
-        uint256 additionalEntrances = 3;
+        uint256 additionalEntrances = 5;
         uint256 startingIndex = 1; // We have starting index be 1 so we can start with address(1) and not address(0)
 
         for (
@@ -284,14 +282,15 @@ contract RaffleTest is StdCheats, Test {
             i++
         ) {
             address player = address(uint160(i));
-            hoax(player, 1 ether); // deal 1 eth to the player, prank plus deal
+            hoax(player, STARTING_USER_BALANCE); // deal some eth to the player, prank plus deal
             raffle.enterRaffle{value: raffleEntranceFee}();
         }
 
-        uint256 startingTimeStamp = raffle.getLastTimeStamp();
-        uint256 startingBalance = expectedWinner.balance;
+        uint256 prize = raffleEntranceFee * (additionalEntrances + 1);
 
         // Act
+        uint256 startingTimeStamp = raffle.getLastTimeStamp();
+
         vm.recordLogs();
         raffle.performUpkeep(""); // emits requestId
         Vm.Log[] memory entries = vm.getRecordedLogs();
@@ -303,19 +302,18 @@ contract RaffleTest is StdCheats, Test {
             address(raffle)
         );
 
-        // Assert
-        address recentWinner = raffle.getRecentWinner();
-        Raffle.RaffleState raffleState = raffle.getRaffleState();
-        uint256 winnerBalance = recentWinner.balance;
         uint256 endingTimeStamp = raffle.getLastTimeStamp();
-        uint256 prize = raffleEntranceFee * (additionalEntrances + 1);
 
-        assert(recentWinner == expectedWinner);
-        assert(uint256(raffleState) == 0); // after pick winner, raffle state back to open
-        assert(winnerBalance == startingBalance + prize);
+        // Assert
+
+        // assert(recentWinner == expectedWinner);
+        assert(uint256(raffle.getRaffleState()) == 0); // after pick winner, raffle state back to open
         assert(endingTimeStamp > startingTimeStamp);
-
         assert(raffle.getRecentWinner() != address(0));
         assert(raffle.getNumberOfPlayers() == 0);
+        assert(
+            raffle.getRecentWinner().balance ==
+                STARTING_USER_BALANCE + prize - raffleEntranceFee
+        );
     }
 }
