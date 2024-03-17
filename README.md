@@ -329,3 +329,11 @@ note:
 - run `forge test --match-test testPerformUpkeepUpdatesRaffleStateAndEmitsRequestId`
 
 ## Intro to Fuzz tests
+
+- run `forge test --match-test testFulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep`
+
+## One Big Test
+
+- run `forge test --match-test testFulfillRandomWordsPicksAWinnerResetsAndSendsMoney`
+
+## Passing the private key to vm.startBroadcast

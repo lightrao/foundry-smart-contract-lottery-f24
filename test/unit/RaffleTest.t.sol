@@ -240,13 +240,13 @@ contract RaffleTest is StdCheats, Test {
         _;
     }
 
-    function testFulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep()
-        public
-        raffleEntered
-        skipFork
-    {
+    function testFulfillRandomWordsCanOnlyBeCalledAfterPerformUpkeep(
+        uint256 randomReqeustId
+    ) public raffleEntered skipFork {
         // Arrange
         // Act / Assert
+
+        // VRFCoordinatorV2Mock include `revert("nonexistent request");` if _requestId not correct
         vm.expectRevert("nonexistent request");
         // vm.mockCall could be used here...
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
@@ -255,9 +255,14 @@ contract RaffleTest is StdCheats, Test {
         );
 
         vm.expectRevert("nonexistent request");
-
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
             1,
+            address(raffle)
+        );
+
+        vm.expectRevert("nonexistent request");
+        VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
+            randomReqeustId, // fuzz
             address(raffle)
         );
     }
@@ -279,7 +284,7 @@ contract RaffleTest is StdCheats, Test {
             i++
         ) {
             address player = address(uint160(i));
-            hoax(player, 1 ether); // deal 1 eth to the player
+            hoax(player, 1 ether); // deal 1 eth to the player, prank plus deal
             raffle.enterRaffle{value: raffleEntranceFee}();
         }
 
@@ -292,6 +297,7 @@ contract RaffleTest is StdCheats, Test {
         Vm.Log[] memory entries = vm.getRecordedLogs();
         bytes32 requestId = entries[1].topics[1]; // get the requestId from the logs
 
+        // we are pretend to be the chainlink vrf node to support random number
         VRFCoordinatorV2Mock(vrfCoordinatorV2).fulfillRandomWords(
             uint256(requestId),
             address(raffle)
@@ -299,7 +305,7 @@ contract RaffleTest is StdCheats, Test {
 
         // Assert
         address recentWinner = raffle.getRecentWinner();
-        Raffle.RaffleState raffleState = raffle.getRaffleState();
+        Raffle.RaffleState raffleState = raffle.getRaffleState(); // after pick winner, raffle state back to open
         uint256 winnerBalance = recentWinner.balance;
         uint256 endingTimeStamp = raffle.getLastTimeStamp();
         uint256 prize = raffleEntranceFee * (additionalEntrances + 1);
@@ -308,5 +314,8 @@ contract RaffleTest is StdCheats, Test {
         assert(uint256(raffleState) == 0);
         assert(winnerBalance == startingBalance + prize);
         assert(endingTimeStamp > startingTimeStamp);
+
+        assert(raffle.getRecentWinner() != address(0));
+        assert(raffle.getNumberOfPlayers() == 0);
     }
 }
