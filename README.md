@@ -337,3 +337,13 @@ note:
 - run `forge test --match-test testFulfillRandomWordsPicksAWinnerResetsAndSendsMoney`
 
 ## Passing the private key to vm.startBroadcast
+
+- run:
+  ```bash
+  source .env
+  forge test --fork-url $SEPOLIA_RPC_URL
+  forge test
+  ```
+- note: add `skipFork` to test function because we expect it just running on local chain. In real chain, there is no mock.
+
+## Integrations Test

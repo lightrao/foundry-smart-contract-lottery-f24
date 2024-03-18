@@ -31,7 +31,7 @@ contract CreateSubscription is Script {
         uint256 deployerKey
     ) public returns (uint64, address) {
         console.log("Creating subscription on chainId: ", block.chainid);
-        vm.startBroadcast(deployerKey);
+        vm.startBroadcast(deployerKey); // who create subscription is the owner of it
         uint64 subId = VRFCoordinatorV2Interface(vrfCoordinatorV2)
             .createSubscription();
         vm.stopBroadcast();
@@ -55,7 +55,7 @@ contract AddConsumer is Script {
         console.log("Adding consumer contract: ", contractToAddToVrf);
         console.log("Using vrfCoordinator: ", vrfCoordinator);
         console.log("On ChainID: ", block.chainid);
-        vm.startBroadcast(deployerKey);
+        vm.startBroadcast(deployerKey); // only the owner of subscription can add consumer
         VRFCoordinatorV2Mock(vrfCoordinator).addConsumer(
             subId,
             contractToAddToVrf
@@ -140,7 +140,7 @@ contract FundSubscription is Script {
             console.log(msg.sender);
             console.log(LinkToken(link).balanceOf(address(this)));
             console.log(address(this));
-            vm.startBroadcast(deployerKey);
+            vm.startBroadcast(deployerKey); // the owner of subscription fund it, but any one can fund it
             LinkToken(link).transferAndCall(
                 vrfCoordinatorV2,
                 FUND_AMOUNT,
