@@ -60,6 +60,8 @@ contract RaffleTest is StdCheats, Test {
         _;
     }
 
+    // ensures that the function it modifies will only execute its logic on a deployed contract
+    // in a real network, not during tests or simulations.
     modifier onlyOnDeployedContracts() {
         if (block.chainid == 31337) {
             return;
