@@ -374,4 +374,31 @@ note:
   make deploy
   ```
 
-  ## Testnet Demo - The Demo
+## Testnet Demo - The Demo
+
+- run
+  ```bash
+  make deploy ARGS="--network sepolia"
+  ```
+  ```bash
+  cast call <Raffle contract address> "getRecentWinner()" --rpc-url $SEPOLIA_RPC_URL
+  ```
+
+## Console.log Debugging
+
+- add `console.log` into `Raffle.sol` and then run test
+- run:
+
+  ```bash
+  forge test --match-test testRaffleRecordsPlayerWhenTheyEnter -vv
+  ```
+
+## forge test --debug
+
+- run:
+
+  ```bash
+  forge test --debug testRaffleRecordsPlayerWhenTheyEnter
+  ```
+
+## Recap

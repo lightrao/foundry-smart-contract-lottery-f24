@@ -6,6 +6,8 @@ import {VRFCoordinatorV2Interface} from "@chainlink/contracts/src/v0.8/interface
 import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
+// import {console} from "forge-std/console.sol";
+
 /**@title A sample Raffle Contract
  * @author Light Rao
  * @notice This contract is for creating a sample raffle contract
@@ -81,6 +83,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         if (s_raffleState != RaffleState.OPEN) {
             revert Raffle__RaffleNotOpen();
         }
+
+        // console.log("a player has push into s_players array :)");
         s_players.push(payable(msg.sender));
         // Emit an event when we update a dynamic array or mapping
         // Named events with the function name reversed
