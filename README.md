@@ -347,3 +347,31 @@ note:
 - note: add `skipFork` to test function because we expect it just running on local chain. In real chain, there is no mock.
 
 ## Integrations Test
+
+- unit test
+- integration test
+- forked test(pseudo staging integration test)
+- staging test <- run test on mainnet/testnet
+
+## Testnet Demo - Makefile setup
+
+- run:
+  ```bash
+  sudo apt install make -y
+  make --version
+  ```
+- create `Makefile`
+- run:
+
+  ```bash
+  make deploy ARGS="--network sepolia"
+  ```
+
+  or:
+
+  ```bash
+  make anvil
+  make deploy
+  ```
+
+  ## Testnet Demo - The Demo
