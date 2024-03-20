@@ -376,10 +376,11 @@ note:
 
 ## Testnet Demo - The Demo
 
-- run
+- deploy to sepolia testnet run:
   ```bash
   make deploy ARGS="--network sepolia"
   ```
+- call function of a contract run:
   ```bash
   cast call <Raffle contract address> "getRecentWinner()" --rpc-url $SEPOLIA_RPC_URL
   ```
