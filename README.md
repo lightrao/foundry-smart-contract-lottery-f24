@@ -380,8 +380,11 @@ note:
   ```bash
   make deploy ARGS="--network sepolia"
   ```
-- call function of a contract run:
+- go to `https://automation.chain.link/` and register a new upkeep with Raffle contract address
+  - note: anybody can call `performUpkeep`, but we want chainlink to do so automatically
+- we can call function of a contract by run:
   ```bash
+  source .env
   cast call <Raffle contract address> "getRecentWinner()" --rpc-url $SEPOLIA_RPC_URL
   ```
 
